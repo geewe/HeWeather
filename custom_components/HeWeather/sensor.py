@@ -86,12 +86,16 @@ class HeWeatherSensor(Entity):
         self._updatetime = None
 
     @property
-    def name(self):
+    def unique_id(self):
         return self._object_id
 
     @property
-    def registry_name(self):
+    def name(self):
         return self._friendly_name
+
+    # @property
+    # def registry_name(self):
+    #     return self._friendly_name
 
     @property
     def state(self):
@@ -189,10 +193,10 @@ class HeWeatherSensor(Entity):
 
 class WeatherData(object):
     def __init__(self, city, appkey):
-        self._url = "https://free-api.heweather.com/s6/weather/now"
-        self._air_url = "https://free-api.heweather.com/s6/air/now"
-        self._life_index_url = "https://free-api.heweather.com/s6/weather/lifestyle"
-        self._long_weather_forcasting_url = "https://free-api.heweather.com/s6/weather/forecast"
+        self._url = "https://free-api.heweather.net/s6/weather/now"
+        self._air_url = "https://free-api.heweather.net/s6/air/now"
+        self._life_index_url = "https://free-api.heweather.net/s6/weather/lifestyle"
+        self._long_weather_forcasting_url = "https://free-api.heweather.net/s6/weather/forecast"
         self._params = {"location": city, "key": appkey}
         # self._aqi_params = {"location": aqi_city, "key": appkey}
         self._fl = None
@@ -325,7 +329,7 @@ class WeatherData(object):
     @property
     def updatetime(self):
         return self._updatetime
-
+    
     def now(self):
         now_weather = requests.post(self._url, self._params)
         con = now_weather.json()
